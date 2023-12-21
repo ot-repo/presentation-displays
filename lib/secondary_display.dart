@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:presentation_displays/displays_manager.dart';
@@ -10,9 +12,7 @@ typedef ArgumentsCallback = Function(dynamic arguments);
 /// [SecondaryDisplay.callback] instance of [ArgumentsCallback] to receive data transmitted from the [DisplayManager].
 /// [SecondaryDisplay.child] child widget of secondary display
 class SecondaryDisplay extends StatefulWidget {
-  const SecondaryDisplay(
-      {Key? key, required this.callback, required this.child})
-      : super(key: key);
+  const SecondaryDisplay({Key? key, required this.callback, required this.child}) : super(key: key);
 
   /// instance of [ArgumentsCallback] to receive data transmitted from the [DisplaysManager].
   final ArgumentsCallback callback;
@@ -42,6 +42,7 @@ class _SecondaryDisplayState extends State<SecondaryDisplay> {
   _addListenerForPresentation(ArgumentsCallback function) {
     _presentationMethodChannel = MethodChannel(_presentationChannel);
     _presentationMethodChannel?.setMethodCallHandler((call) async {
+      log("call >>> ${call.arguments}");
       function(call.arguments);
     });
   }

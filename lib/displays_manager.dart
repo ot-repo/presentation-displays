@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +29,7 @@ const _transferDataToPresentation = "transferDataToPresentation";
 ///
 /// [DisplayManager.getDisplays]
 ///
-const String DISPLAY_CATEGORY_PRESENTATION =
-    "android.hardware.display.category.PRESENTATION";
+const String DISPLAY_CATEGORY_PRESENTATION = "android.hardware.display.category.PRESENTATION";
 
 /// Provide you with the method for you to work with [SecondaryDisplay].
 class DisplayManager {
@@ -59,15 +59,11 @@ class DisplayManager {
   ///
   /// See [DISPLAY_CATEGORY_PRESENTATION]
   Future<List<Display>?> getDisplays({String? category}) async {
-    List<dynamic> origins = await jsonDecode((await _displayMethodChannel
-            ?.invokeMethod(_listDisplay, category))) ??
-        [];
+    List<dynamic> origins = await jsonDecode((await _displayMethodChannel?.invokeMethod(_listDisplay, category))) ?? [];
     List<Display> displays = [];
     for (var element in origins) {
       final map = jsonDecode(jsonEncode(element));
-      displays.add(kReleaseMode
-          ? displayReleaseFromJson(map as Map<String, dynamic>)
-          : displayFromJson(map as Map<String, dynamic>));
+      displays.add(kReleaseMode ? displayReleaseFromJson(map as Map<String, dynamic>) : displayFromJson(map as Map<String, dynamic>));
     }
     return displays;
   }
@@ -116,12 +112,13 @@ class DisplayManager {
   /// </P>
   ///
   /// return [Future<bool>] about the status has been display or not
-  Future<bool?>? showSecondaryDisplay(
-      {required int displayId, required String routerName}) async {
+  Future<bool?>? showSecondaryDisplay({required int displayId, required String routerName, required String data}) async {
+    log("data> $data ");
     return await _displayMethodChannel?.invokeMethod<bool?>(
         _showPresentation,
         "{"
         "\"displayId\": $displayId,"
+        "\"data\": $data,"
         "\"routerName\": \"$routerName\""
         "}");
   }
@@ -193,8 +190,7 @@ class DisplayManager {
   ///
   /// return [Future<bool>] the value to determine whether or not the data has been transferred successfully
   Future<bool?>? transferDataToPresentation(dynamic arguments) async {
-    return await _displayMethodChannel?.invokeMethod<bool?>(
-        _transferDataToPresentation, arguments);
+    return await _displayMethodChannel?.invokeMethod<bool?>(_transferDataToPresentation, arguments);
   }
 
   /// Subscribe to the stream to get notifications about connected / disconnected displays

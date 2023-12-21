@@ -12,8 +12,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     default:
       return MaterialPageRoute(
           builder: (_) => Scaffold(
-                body: Center(
-                    child: Text('No route defined for ${settings.name}')),
+                body: Center(child: Text('No route defined for ${settings.name}')),
               ));
   }
 }
@@ -57,8 +56,7 @@ class Button extends StatelessWidget {
   final String title;
   final VoidCallback? onPressed;
 
-  const Button({Key? key, required this.title, this.onPressed})
-      : super(key: key);
+  const Button({Key? key, required this.title, this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -88,8 +86,7 @@ class _DisplayManagerScreenState extends State<DisplayManagerScreen> {
   List<Display?> displays = [];
 
   final TextEditingController _indexToShareController = TextEditingController();
-  final TextEditingController _dataToTransferController =
-      TextEditingController();
+  final TextEditingController _dataToTransferController = TextEditingController();
 
   final TextEditingController _nameOfIdController = TextEditingController();
   String _nameOfId = "";
@@ -153,9 +150,7 @@ class _DisplayManagerScreenState extends State<DisplayManagerScreen> {
             itemBuilder: (BuildContext context, int index) {
               return SizedBox(
                 height: 50,
-                child: Center(
-                    child: Text(
-                        ' ${displays[index]?.displayId} ${displays[index]?.name}')),
+                child: Center(child: Text(' ${displays[index]?.displayId} ${displays[index]?.name}')),
               );
             }),
         const Divider()
@@ -185,8 +180,7 @@ class _DisplayManagerScreenState extends State<DisplayManagerScreen> {
               if (displayId != null) {
                 for (final display in displays) {
                   if (display?.displayId == displayId) {
-                    displayManager.showSecondaryDisplay(
-                        displayId: displayId, routerName: "presentation");
+                    displayManager.showSecondaryDisplay(displayId: displayId, routerName: "presentation", data: "hello");
                   }
                 }
               }
@@ -274,8 +268,7 @@ class _DisplayManagerScreenState extends State<DisplayManagerScreen> {
             onPressed: () async {
               int? id = int.tryParse(_nameOfIdController.text);
               if (id != null) {
-                final value = await displayManager
-                    .getNameByDisplayId(displays[id]?.displayId ?? -1);
+                final value = await displayManager.getNameByDisplayId(displays[id]?.displayId ?? -1);
                 setState(() {
                   _nameOfId = value ?? "";
                 });
