@@ -2,14 +2,15 @@ group 'com.namit.presentation_displays'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.7.20'
+    ext.kotlin_version = '2.0.20'
     repositories {
         google()
-        mavenCentral()
+       mavenCentral()
+
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'com.android.tools.build:gradle:8.3.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -18,6 +19,7 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
+
     }
 }
 
@@ -25,13 +27,28 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 33
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.namit.presentation_displays'
+    }
+    namespace 'com.namit.presentation_displays'
+    compileSdkVersion 34
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
     }
+
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 29
     }
     lintOptions {
         disable 'InvalidPackage'
@@ -39,7 +56,8 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+//    implementation 'io.flutter:flutter_embedding_release:1.0.0'
+  // implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.android.support:support-annotations:28.0.0'
 }
