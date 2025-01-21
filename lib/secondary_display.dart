@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:presentation_displays/displays_manager.dart';
 
+
 /// Only use a subscription to listen within the secondary display
 /// [arguments] returned  type [dynamic]
 typedef ArgumentsCallback = Function(dynamic arguments);

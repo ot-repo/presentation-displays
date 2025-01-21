@@ -118,7 +118,7 @@ class DisplayManager {
         _showPresentation,
         "{"
         "\"displayId\": $displayId,"
-        "\"data\": $data,"
+        // "\"data\": $data,"
         "\"routerName\": \"$routerName\""
         "}");
   }
