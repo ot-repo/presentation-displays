@@ -112,14 +112,19 @@ class DisplayManager {
   /// </P>
   ///
   /// return [Future<bool>] about the status has been display or not
-  Future<bool?>? showSecondaryDisplay(
-      {required int displayId, required String routerName}) async {
-    return await _displayMethodChannel?.invokeMethod<bool?>(
-        _showPresentation,
-        "{"
-            "\"displayId\": $displayId,"
-            "\"routerName\": \"$routerName\""
-            "}");
+  Future<bool?>? showSecondaryDisplay({required int displayId, required String routerName}) async {
+    try {
+      print("Attempting to show display with ID: $displayId");
+      return await _displayMethodChannel?.invokeMethod<bool?>(
+          _showPresentation,
+          "{"
+              "\"displayId\": $displayId,"
+              "\"routerName\": \"$routerName\""
+              "}");
+    } on PlatformException catch (e) {
+      print("Error: ${e.message}");
+      return null;
+    }
   }
 
   /// Hides secondary display that is attached to the specified display
