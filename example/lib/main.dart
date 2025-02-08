@@ -180,7 +180,7 @@ class _DisplayManagerScreenState extends State<DisplayManagerScreen> {
               if (displayId != null) {
                 for (final display in displays) {
                   if (display?.displayId == displayId) {
-                    displayManager.showSecondaryDisplay(displayId: displayId, routerName: "presentation", data: "hello");
+                    displayManager.showSecondaryDisplay(displayId: displayId, routerName: "presentation",);
                   }
                 }
               }
