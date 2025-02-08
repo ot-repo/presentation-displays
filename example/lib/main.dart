@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:presentation_displays/display.dart';
 import 'package:presentation_displays/displays_manager.dart';
@@ -177,9 +179,11 @@ class _DisplayManagerScreenState extends State<DisplayManagerScreen> {
             title: "Show presentation",
             onPressed: () async {
               int? displayId = int.tryParse(_indexToShareController.text);
+              log("displayId ==>$displayId //${_indexToShareController.text}");
               if (displayId != null) {
                 for (final display in displays) {
                   if (display?.displayId == displayId) {
+                    
                     displayManager.showSecondaryDisplay(displayId: displayId, routerName: "presentation",);
                   }
                 }
