@@ -31,7 +31,7 @@ android {
         namespace 'com.namit.presentation_displays'
     }
     namespace 'com.namit.presentation_displays'
-    compileSdkVersion 34
+    compileSdkVersion 35
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
